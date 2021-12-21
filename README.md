@@ -35,3 +35,7 @@ pubspec.yaml
 here, package_name is important. 
 
 you will get all the comments there in the code to understand what's happening and how to use.
+
+
+#### YOU CAN ADD THIS CODE IN THE SNIPPETS, THAT WILL BE BETTER TO USE THIS.
+
