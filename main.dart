@@ -1,27 +1,3 @@
-// import 'dart:io';
-
-// void main(List<String> args) {
-//   try {
-//     if (args.isEmpty) {
-//       throw "Please Assign All the Arguements. \nex. dart main.dart [package_name]";
-//     } else {
-//       String packageName = args[0];
-//       List<FileSystemEntity> data =
-//           Directory(Directory.current.path + "/lib").listSync(recursive: true);
-
-//       for (FileSystemEntity element in data) {
-//         if (element.runtimeType.toString() == "_File") {
-//           String data = File(element.path).readAsStringSync();
-//           data = data.replaceAll("mvc_get", packageName);
-//           File(element.path).writeAsStringSync(data);
-//         }
-//       }
-//     }
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-
 import 'dart:io';
 
 String packageName = "";
