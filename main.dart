@@ -1,12 +1,12 @@
 import 'dart:io';
 
-String packageName = "";
+String projectName = "";
 void main(List<String> args) {
   try {
     if (args.isEmpty) {
-      throw "Enter the package name.\nEx. dart main.dart [package_name]";
+      throw "Enter the project name.\nEx. dart main.dart [project_name]";
     } else {
-      packageName = args.first;
+      projectName = args.first;
       startThePackageGeneration();
     }
   } catch (e) {
@@ -373,7 +373,7 @@ FontWeight getFontWeight(FWT fwt) {
 """;
   try {
     fontUtilitiesFileContent =
-        fontUtilitiesFileContent.replaceAll("mvc_get", packageName);
+        fontUtilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(fontUtilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE FONT UTILITIES.DART FILE...";
@@ -425,7 +425,7 @@ Map<String, String> enUS = {
 };
 """;
   localizationFileContent =
-      localizationFileContent.replaceAll("mvc_get", packageName);
+      localizationFileContent.replaceAll("mvc_get", projectName);
   try {
     fileName.writeAsStringSync(localizationFileContent);
   } catch (e) {
@@ -453,7 +453,7 @@ writeDataInLocalizationLocaleFile(File fileName) {
 part 'en_us.dart';
 """;
   localizationFileContent =
-      localizationFileContent.replaceAll("mvc_get", packageName);
+      localizationFileContent.replaceAll("mvc_get", projectName);
   try {
     fileName.writeAsStringSync(localizationFileContent);
   } catch (e) {
@@ -479,7 +479,7 @@ createLocalizationFile(String currentDirectory) {
 writeDataInLocalizationFile(File fileName) {
   String localizationFileContent = """export 'locale/locale.dart';""";
   localizationFileContent =
-      localizationFileContent.replaceAll("mvc_get", packageName);
+      localizationFileContent.replaceAll("mvc_get", projectName);
   try {
     fileName.writeAsStringSync(localizationFileContent);
   } catch (e) {
@@ -529,7 +529,7 @@ class RouteUtilities {
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE ROUTE.DART FILE...";
@@ -572,7 +572,7 @@ class PreferenceKey {
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE PREFERENCE KEY.DART FILE...";
@@ -599,7 +599,7 @@ class VariableUtilities {
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE VARIABLE UTILITIES.DART FILE...";
@@ -679,7 +679,7 @@ class LightThemeData extends ThemeHandler {
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE LIGHT THEME.DART FILE...";
@@ -704,7 +704,7 @@ class DarkThemeData extends ThemeHandler {
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE DARK THEME.DART FILE...";
@@ -734,7 +734,7 @@ part 'theme_handler.dart';
 /// part 'theme_data/demo_theme.dart';""";
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE THEME.DART FILE...";
@@ -765,7 +765,7 @@ abstract class ThemeHandler {
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE THEME_HANDLER.DART FILE...";
@@ -795,7 +795,7 @@ export 'theme/theme.dart';
 """;
   try {
     utilitiesFileContent =
-        utilitiesFileContent.replaceAll("mvc_get", packageName);
+        utilitiesFileContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(utilitiesFileContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITING DATA IN THE UTILITIES.DART FILE...";
@@ -895,7 +895,7 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 """;
   try {
-    splashScreeContent = splashScreeContent.replaceAll("mvc_get", packageName);
+    splashScreeContent = splashScreeContent.replaceAll("mvc_get", projectName);
     fileName.writeAsStringSync(splashScreeContent);
   } catch (e) {
     throw "ERROR CAUSED WHILE WRITTING DATA IN THE SPLASH SCREEN FILE...";
@@ -985,7 +985,7 @@ class MyApp extends StatelessWidget {
   }
 }
 """;
-  mainFileContent = mainFileContent.replaceAll("mvc_get", packageName);
+  mainFileContent = mainFileContent.replaceAll("mvc_get", projectName);
   try {
     fileName.writeAsStringSync(mainFileContent);
   } catch (e) {

@@ -31,8 +31,8 @@ pubspec.yaml
 
 1. open terminal
 
-1. write command "dart main.dart [package_name]"<br>
-here, package_name is important. 
+1. write command "dart main.dart [project_name]"<br>
+here, project_name is important. 
 
 you will get all the comments there in the code to understand what's happening and how to use.
 
