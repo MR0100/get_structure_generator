@@ -629,6 +629,7 @@ createTheme(String currentDirectory) {
     } else {
       writeDataInThemeHandlerFile(themeHandlerFile);
     }
+    createThemeData(currentDirectory);
   }
 }
 
