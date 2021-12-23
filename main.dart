@@ -542,7 +542,7 @@ createSettings(String currentDirectory) {
     throw "UTILITIES/SETTINGS DIRECTORY NOT EXISTS!";
   } else {
     File preferenceFile = File(
-        currentDirectory + "/utilities/settings/" + "/prederence_key.dart");
+        currentDirectory + "/utilities/settings/" + "/preference_key.dart");
     preferenceFile.createSync();
 
     if (!preferenceFile.existsSync()) {
@@ -567,7 +567,8 @@ writeDataInPreferenceFile(File fileName) {
       """/// all the keys for read/write preferences are mentioned in this file.
 class PreferenceKey {
   static String applicationStorageKey = "mvc_getStorageKey";
-  static String isLogin = "is_mvc_getLogin";
+  static String isLogin = "ismvc_getLogin";
+  static String storedTheme = "mvc_getStoredThemeMode";
 }
 """;
   try {
@@ -717,22 +718,79 @@ writeDataInThemeFile(File fileName) {
   library application_theme;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:mvc_get/utilities/utilities.dart';
 
-part 'theme_data/dark_theme_data.dart';
+part 'theme_data/dark_them_data.dart';
 part 'theme_data/light_theme_data.dart';
 part 'theme_handler.dart';
 
-
-
-
 /// TODO: IF YOU ADD NEW THEME_DATA THEN PLEASE ADD THAT FILE AS A PART OF THIS LIBRARY.
-/// 
+///
 /// here, 'part' is the keyword to mention that the specified file is the part of current library.
-/// so, you have to do is. 
+/// so, you have to do is.
 /// part 'path/filename.dart';
-/// 
-/// ex. 
-/// part 'theme_data/demo_theme.dart';""";
+///
+/// ex.
+/// part 'theme_data/demo_theme.dart';
+///
+
+class ThemeManager {
+  /// check for the system and initialize the default theme.
+  static initializeTheme() {
+    /// fetching stored theme string from the application storage cache.
+    /// if the application is opening first time then it will use the theme automatically.
+    String storedTheme =
+        VariableUtilities.prefs.read<String>(PreferenceKey.storedTheme) ??
+            "auto";
+
+    /// write cases for all theme.
+    /// TODO : IF YOU ARE USING MULTIPLE THEMES (MORE THAN TWO) THEN USE CASE TO CHECK AND ASSIGN THEME ACCORDINGLY.
+    /// we have handled only two case for now.
+
+    switch (storedTheme) {
+      case "dark":
+        VariableUtilities.theme = DarkThemeData();
+        break;
+      case "light":
+        VariableUtilities.theme = LightThemeData();
+        break;
+      default:
+
+        /// check for the system theme and set the application theme accordingly.
+        /// it will only toggle between dark and light.
+        /// if you are using more then two then this will not work to handle other themes.
+        bool isSystemModeIsLight =
+            (SchedulerBinding.instance?.window.platformBrightness ??
+                    Brightness.light) ==
+                Brightness.light;
+
+        /// check if user has dark mode in mobile then it will set DarkThemeData and other wise user LightThemeData
+        if (isSystemModeIsLight) {
+          VariableUtilities.theme = LightThemeData();
+        } else {
+          VariableUtilities.theme = DarkThemeData();
+        }
+    }
+  }
+
+  /// while change theme from the settings of application then it will assign the selected theme data.
+  /// TODO : IF YOU WANT TO USE MORE THAN ONE THEME THEN YOU HAVE TO ADD MORE THAN ONE CASE.
+  swichTheme(String theme) {
+    switch (theme) {
+      case "light":
+        VariableUtilities.theme = LightThemeData();
+        break;
+      case "dark":
+        VariableUtilities.theme = DarkThemeData();
+        break;
+      default:
+        VariableUtilities.theme = LightThemeData();
+    }
+  }
+}
+
+  """;
   try {
     utilitiesFileContent =
         utilitiesFileContent.replaceAll("mvc_get", projectName);
@@ -967,6 +1025,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvc_get/utilities/settings/preference_key.dart';
 import 'package:mvc_get/utilities/settings/variable_utilities.dart';
+import 'package:mvc_get/utilities/utilities.dart';
 
 void main() {
   /// Initializing the instance of applicationStorageKey.
@@ -977,14 +1036,35 @@ void main() {
   return runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    /// initialize the theme to use in the application.
+    ThemeManager.initializeTheme();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp();
+    return GetMaterialApp(
+      debugShowCheckedModeBanner:
+          false, // It will hide the badge of debuggin in the application.
+      initialRoute:
+          RouteUtilities.root, // It is the first page of an application.
+      getPages: RouteUtilities
+          .pages, // It defines all the pages used in the application.
+    );
   }
 }
+
 """;
   mainFileContent = mainFileContent.replaceAll("mvc_get", projectName);
   try {
